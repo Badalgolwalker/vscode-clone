@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="../stylesheets/style.css">
+</head>
+<body>
+    <div id="main">
+        <div class="left">
+            <div class="filedet">
+                <h4>foldername</h4>
+             <div class="part2">
+                <i id="a" class="ri-add-line"></i>
+                <i id="b" class="ri-folder-line"></i>
+  <a href="/back"><i class="ri-refresh-line"></i></a>
+             </div>
+            </div>
+       <div class="files">
+        <form id="c" action="/createfile">
+            <input type="text" name="filename" placeholder="filename">
+        </form>
+        <form id="d" action="/createfolder">
+            <input type="text" name="foldername" placeholder="foldername">
+        </form>
+        <% file.forEach(function(fi){ %>
+<div class="elem">
+       <div class="elleft">
+        <% if(fi.isDirectory()){ %>
+            <i class="ri-folder-fill"></i>
+        <%= fi.name %>
+        <% } else{ %>
+            <i class="ri-file-line"></i>
+        <%= fi.name %>
+     <% } %>
+       </div>
+       <div class="elright">
+        <i class="ri-pencil-line"></i>
+        <% if (fi.isDirectory()){ %>
+            <a href="/delete-folder/<%= fi.name %>"><i class="ri-delete-bin-line"></i></a>
+       <% }else{ %>
+        <a href="/delete-file/<%= fi.name %>"><i class="ri-delete-bin-line"></i></a>
+     <% } %>
+           </div>
+        </div>
+      <% }) %>
+       </div>
+        </div>
+    <div class="right">
+        <div class="rnav">
+            <div class="d1">
+           <%= filename %>
+              <a href="/">  <span><i>x</i></span></a>
+            </div>
+        </div>
+        <form action="/update/<%= filename %>" method="post">
+            <textarea name="data" style="resize: none;">
+                <%= filedata %>
+            </textarea>
+            <input type="submit" value="save file">
+        </form>
+    </div>
+    </div>
+    <script src="../javascripts/js.js"></script>
+</body>
+</html>
